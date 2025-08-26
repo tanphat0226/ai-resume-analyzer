@@ -150,7 +150,7 @@ export const resumes: Resume[] = [
 		},
 	},
 	{
-		id: '3',
+		id: '6',
 		companyName: 'Apple',
 		jobTitle: 'iOS Developer',
 		imagePath: '/images/resume-3.png',
