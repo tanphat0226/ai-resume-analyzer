@@ -7,10 +7,12 @@ interface FileUploaderProps {
 }
 
 const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
+	const [file, setFile] = useState<File | null>(null)
+
 	const onDrop = useCallback(
 		(acceptedFiles: File[]) => {
 			const file = acceptedFiles[0] || null
-
+			setFile(file)
 			onFileSelect?.(file)
 		},
 		[onFileSelect]
@@ -26,7 +28,11 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
 			maxSize: maxFileSize,
 		})
 
-	const file = acceptedFiles[0] || null
+	const removeFile = (e: React.MouseEvent) => {
+		e.stopPropagation()
+		setFile(null)
+		onFileSelect?.(null)
+	}
 
 	return (
 		<div className='w-full gradient-border'>
@@ -56,9 +62,7 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
 							</div>
 							<button
 								className='p-2 cursor-pointer'
-								onClick={(e) => {
-									onFileSelect?.(null)
-								}}
+								onClick={removeFile}
 							>
 								<img
 									src='/icons/cross.svg'
